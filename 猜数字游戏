@@ -1,0 +1,71 @@
+void game()
+{
+	int i = 0;
+	srand((unsigned int)time(NULL));//提供一个随机数
+	i = rand()%100+1;
+    //printf("%d\n", i);
+	int a = 0;
+	do
+	{
+		scanf("%d", &a);
+		if (a > i)
+		{
+			printf("猜大了，请重新输入:");
+		}
+		else if (a < i)
+		{
+			printf("猜小了,请重新输入:");
+		}
+		else
+		{
+			printf("恭喜你，猜对了。");
+			printf("\n它就是：%d\n",a);
+			break;
+		}
+	} while (a != 0);
+}
+void menu()
+{
+	//提供游戏开始界面的菜单
+	printf("Game    start   please  choose\n");
+	printf("##############################\n");
+	printf("##   1.start    0.end       ##\n");
+	printf("##############################\n");
+}
+int main()
+{  
+	int input = 0;
+	
+	do//利用循环至少执行一次的特点
+	{
+		menu();
+		scanf("%d", &input);//必须要在循环中间，否则会出问题
+		switch (input)
+		{
+		case 0:
+			printf("游戏结束\n");
+			break;
+		case 1:
+			printf("猜数字，请输入1-100中的数字\n");
+			game();
+			break;
+		default:
+			printf("输出错误，请重新输入\n");
+			break;
+
+		}
+	} while (input);
+	return 0;
+}
+几个难点：
+1.关于生成随机数 如果直接用int a=0; a=rand()虽然看似随机，但实际上是伪随机。即程序结束后再来一次的随机数是会重复的。【用户未设定随机数种子时，系统默认的随机数种子为1。
+rand()产生的是伪随机数字，每次执行时是相同的;若要不同,用函数srand()初始化它。】因为默认情况下随机数种子为1，而相同的随机数种子产生的随机数是一样的,失去了随机性的意义，
+所以为使每次得到的随机数不一样，用函数srand()初始化随机数种子。srand()的参数，用time函数值（即当前时间），因为两次调用rand()函数的时间通常是不同的，这样就可以保证随机性了。
+2.利用time函数即时间戳，可以根据时间不同生成随机数
+3.rand的随机数范围为0-32678但可以用%100取模使随机数的范围在0-100之间
+4.需要搞清while里面表达式的逻辑关系，搞清楚到底是怎样才需要循环
+
+
+
+版权声明：部分采用本文为CSDN博主「candyliuxj」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/candyliuxj/article/details/4396666
